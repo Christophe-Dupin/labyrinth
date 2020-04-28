@@ -1,4 +1,4 @@
-from models.models import Position, Hero, Vilain, Item, Map
+from models.models import Hero, Vilain, Item, Map
 from view.view import View
 from gamemanager.gamemanager import Gamemanager
 from config import WIDTH, HEIGHT
