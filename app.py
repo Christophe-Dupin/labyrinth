@@ -1,4 +1,4 @@
-from models.models import Position, Hero, Map, Vilain, Item
+from models.models import Hero, Map, Vilain, Item
 from view.view import View
 from gamemanager.gamemanager import Gamemanager
 from controller.controller import Controller
@@ -20,4 +20,3 @@ if __name__ == "__main__":
         controller.process_input()
         gamemanager.generate_hero()
         gamemanager.generate_map()
-        tempo = pygame.time.Clock()
