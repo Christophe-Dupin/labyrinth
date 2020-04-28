@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from models.models import Map, Item, Hero, Vilain, Position
+from models.models import Map, Item, Hero, Vilain
 from view.view import View
 from config import WIDTH, HEIGHT, SPRITE_SIZE, NAME_WINDOW
 
@@ -17,6 +17,7 @@ class Gamemanager:
 
         # init pygame
         pygame.init()
+        pygame.display.flip()
         self.view.window(WIDTH, HEIGHT)
         self.view.window_title(NAME_WINDOW)
 
@@ -27,5 +28,3 @@ class Gamemanager:
 
     def generate_hero(self):
         self.view.draw_hero(self.view.window(WIDTH, HEIGHT), SPRITE_SIZE)
-        pygame.display.flip()
-
