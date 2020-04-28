@@ -1,20 +1,28 @@
 from models.models import Position, Hero, Vilain, Item, Map
 from view.view import View
+from gamemanager.gamemanager import Gamemanager
+from config import WIDTH, HEIGHT
+import pygame
+from pygame.locals import *
 
 
 class Controller:
-    def __init__(self):
-        self.map = Map("data/map.txt")
-        self.position = Position(0, 0)
-        self.hero = Hero(self.map)
-        self.vilain = Vilain(self.map)
-        self.item = Item(self.map)
-        self.view = View(self)
+    def __init__(self, game_manager):
+        self.game_manager = game_manager
+        self.running = True
 
-    def main(self):
-        self.view.main()
-
-
-if __name__ == "__main__":
-    macgaver = Controller()
-    macgaver.main()
+    def process_input(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    self.running = False
+                if event.key == K_LEFT:
+                    self.game_manager.hero.move("moveLeft")
+                elif event.key == K_RIGHT:
+                    self.game_manager.hero.move("moveRight")
+                elif event.key == K_UP:
+                    self.game_manager.hero.move("moveUp")
+                elif event.key == K_DOWN:
+                    self.game_manager.hero.move("moveDown")
