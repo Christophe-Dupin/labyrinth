@@ -1,7 +1,7 @@
 from models.models import Hero, Vilain, Item, Map
 from view.view import View
 from gamemanager.gamemanager import Gamemanager
-from config import WIDTH, HEIGHT
+from config import WIDTH, HEIGHT, WIN, LOST
 import pygame
 from pygame.locals import *
 
@@ -26,3 +26,8 @@ class Controller:
                     self.game_manager.hero.move("moveUp")
                 elif event.key == K_DOWN:
                     self.game_manager.hero.move("moveDown")
+
+                if self.game_manager.hero.status() == WIN:
+                    print("c'est gagné")
+                elif self.game_manager.hero.status() == LOST:
+                    print("c'est perdu")
