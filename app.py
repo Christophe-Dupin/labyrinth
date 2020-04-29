@@ -12,11 +12,10 @@ if __name__ == "__main__":
     hero = Hero(map, item, 0, 0)
     vilain = Vilain(map)
 
-    view = View(map, item, hero, vilain)
-    gamemanager = Gamemanager(map, hero, vilain, item, view)
+    view = View(map, item, hero,)
+    gamemanager = Gamemanager(map, hero, view)
     controller = Controller(gamemanager)
 
     while controller.running:
         controller.process_input()
-        gamemanager.generate_hero()
         gamemanager.generate_map()
