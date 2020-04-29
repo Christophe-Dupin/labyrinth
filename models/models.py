@@ -1,4 +1,4 @@
-from config import PATH, START, FINISH, MAC
+from config import PATH, START, FINISH, MAC, WIN, LOST, IN_MAZE
 import random
 from controller.eventmanager import *
 
@@ -47,8 +47,13 @@ class Hero:
         self.x = x
         self.y = y
         self.item = item
+        self.number_item = 0
+
+    def __contains__(self, position):
+        return (self.x, self.y) in self.map.path
 
     def move(self, direction):
+
         if direction == "moveUp":
             new_coordonne = self.x - 1, self.y
             if new_coordonne in self.map.path:
@@ -68,6 +73,19 @@ class Hero:
             new_coordonne = (self.x, self.y + 1)
             if new_coordonne in self.map.path:
                 self.x, self.y = new_coordonne
+        self.get_item()
+
+    def get_item(self):
+        for i in self.item.position_item:
+            x, y = i
+            if x == self.x and y == self.y and self.item.show:
+                self.number_item += 1
+                self.item.show = False
+
+    def status(self):
+        for i in self.map.finish:
+            if (self.x, self.y) == i:
+                return WIN
 
 
 class Vilain:
@@ -82,10 +100,10 @@ class Item:
     # Work in Progress
     def __init__(self, map):
         self.map = map
-        self.position_items = []
-        self.show = True
+        self.position_item = []
         self.random_items_position()
+        self.show = True
 
     def random_items_position(self):
-        self.position_items = random.choices(self.map.path, k=3)
-        return self.position_items
+        self.position_item = random.choices(self.map.path, k=3)
+        return self.position_item
