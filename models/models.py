@@ -1,6 +1,27 @@
-from config import PATH, START, FINISH, MAC, WIN, LOST, IN_MAZE
+from config import (
+    PATH,
+    START,
+    FINISH,
+    MAC,
+    WIN,
+    LOST,
+    IN_MAZE,
+    HERO,
+    VILAIN,
+    WIDTH,
+    HEIGHT,
+    NAME_WINDOW,
+    FRAMERATE,
+    PATH_PICTURE,
+    WALL_PICTURE,
+    ETHER,
+    POTION,
+    ITEM,
+)
 import random
 from controller.eventmanager import *
+import pygame
+from pygame.locals import *
 
 
 class Map:
@@ -42,12 +63,10 @@ class Map:
 class Hero:
     """Storing data for Hero """
 
-    def __init__(self, map, item, x, y):
+    def __init__(self, map, x, y):
         self.map = map
         self.x = x
         self.y = y
-        self.item = item
-        self.number_item = 0
 
     def __contains__(self, position):
         return (self.x, self.y) in self.map.path
@@ -73,14 +92,6 @@ class Hero:
             new_coordonne = (self.x, self.y + 1)
             if new_coordonne in self.map.path:
                 self.x, self.y = new_coordonne
-        self.get_item()
-
-    def get_item(self):
-        for i in self.item.position_item:
-            x, y = i
-            if x == self.x and y == self.y and self.item.show:
-                self.number_item += 1
-                self.item.show = False
 
     def status(self):
         for i in self.map.finish:
@@ -93,17 +104,60 @@ class Vilain:
 
     def __init__(self, map):
         self.map = map
-        self.position = self.map.finish
+        # self.position = self.map.finish
 
 
 class Item:
     # Work in Progress
-    def __init__(self, map):
-        self.map = map
-        self.position_item = []
-        self.random_items_position()
+    def __init__(self, position, sprite):
+        self.position = position
+        self.sprite = sprite
         self.show = True
 
+    def __repr__(self):
+        return str(self.position)
+
+    def __getitem__(self, key):
+        return self.position[key]
+
+
+class LstItem:
+    def __init__(self, map, sprite):
+        self.sprite = sprite
+        self.map = map
+        self.position_items = []
+        self.random_items_position()
+        self.item = Item(self.position_items[0], self.sprite.ether_picture)
+        self.item1 = Item(self.position_items[1], self.sprite.potion_picture)
+        self.item2 = Item(self.position_items[2], self.sprite.item_picture)
+        self.item_list = [self.item, self.item1, self.item2]
+
     def random_items_position(self):
-        self.position_item = random.choices(self.map.path, k=3)
-        return self.position_item
+        self.position_items = random.choices(self.map.path, k=3)
+        return self.position_items
+
+
+class Sprites:
+    def __init__(self):
+        # viewport size
+        self.screen_size = WIDTH, HEIGHT
+
+        # init pygame
+        pygame.init()
+        pygame.display.set_caption(NAME_WINDOW)
+        self.clock = pygame.time.Clock()
+        self.clock.tick(FRAMERATE)
+        self.screen = pygame.display.set_mode(self.screen_size)
+
+        # init Sprites
+        self.path_picture = self.load_images(PATH_PICTURE)
+        self.wall_picture = self.load_images(WALL_PICTURE)
+        self.hero_picture = self.load_images(HERO)
+        self.vilain_picture = self.load_images(VILAIN)
+        self.ether_picture = self.load_images(ETHER)
+        self.potion_picture = self.load_images(POTION)
+        self.item_picture = self.load_images(ITEM)
+
+    @classmethod
+    def load_images(cls, filename):
+        return pygame.image.load(filename).convert_alpha()
