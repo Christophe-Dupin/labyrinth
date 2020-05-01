@@ -17,11 +17,10 @@ WALL_PICTURE = "data/ressource/wall.png"
 HERO = "data/ressource/MacGyver.png"
 VILAIN = "data/ressource/Gardien.png"
 BG = "data/ressources/BG.png"
-ITEMS_PICTURES = [
-    "data/ressource/ether.png",
-    "data/ressource/potion.png",
-    "data/ressource/items.png",
-]
+ETHER = "data/ressource/ether.png"
+POTION = "data/ressource/potion.png"
+ITEM = "data/ressource/items.png"
+
 
 # Window Parameter
 NAME_WINDOW = "MACGAVER"
