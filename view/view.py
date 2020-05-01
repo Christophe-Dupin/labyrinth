@@ -1,19 +1,7 @@
 import pygame
 import random
 from models.models import Hero, Map, Vilain, Item, LstItem
-from config import (
-    WIDTH,
-    HEIGHT,
-    NAME_WINDOW,
-    PATH_PICTURE,
-    WALL_PICTURE,
-    SPRITE_SIZE,
-    HERO,
-    VILAIN,
-    FRAMERATE,
-    LOST,
-    WIN,
-)
+from config import SPRITE_SIZE, FRAMERATE
 from pygame.locals import *
 
 
@@ -53,16 +41,14 @@ class View:
         for i in self.lstItem.item_list:
             if i.show:
                 self.sprites.screen.blit(
-                    self.sprites.ether_picture, (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE)
+                    i.sprite,
+                    (i.position[1] * SPRITE_SIZE, i.position[0] * SPRITE_SIZE),
                 )
-                self.sprites.screen.blit(
-                    self.sprites.potion_picture,
-                    (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE),
-                )
-                self.sprites.screen.blit(
-                    self.sprites.potion_picture,
-                    (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE),
-                )
+            else:
+                for a in self.map.library:
+                    self.sprites.screen.blit(
+                        i.sprite, (a[1] * SPRITE_SIZE, a[0] * SPRITE_SIZE),
+                    )
 
         pygame.display.flip()
         self.sprites.clock.tick(FRAMERATE)
