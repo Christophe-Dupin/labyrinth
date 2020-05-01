@@ -93,11 +93,6 @@ class Hero:
             if new_coordonne in self.map.path:
                 self.x, self.y = new_coordonne
 
-    def status(self):
-        for i in self.map.finish:
-            if (self.x, self.y) == i:
-                return WIN
-
 
 class Vilain:
     """Storing data for Vilain """
