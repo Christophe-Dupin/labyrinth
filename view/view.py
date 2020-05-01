@@ -45,7 +45,7 @@ class View:
             )
         for vilain_position in vilain:
             x, y = vilain_position
-            if self.hero.status() != WIN:
+            if (self.hero.x, self.hero.y) != vilain_position:
                 self.sprites.screen.blit(
                     self.sprites.vilain_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
                 )
