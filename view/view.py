@@ -1,6 +1,6 @@
 import pygame
-from models.models import Map
-from models.models import Item
+import random
+from models.models import Hero, Map, Vilain, Item, LstItem
 from config import (
     WIDTH,
     HEIGHT,
@@ -8,9 +8,11 @@ from config import (
     PATH_PICTURE,
     WALL_PICTURE,
     SPRITE_SIZE,
-    ITEMS_PICTURES,
     HERO,
     VILAIN,
+    FRAMERATE,
+    LOST,
+    WIN,
 )
 from pygame.locals import *
 
@@ -18,39 +20,49 @@ from pygame.locals import *
 class View:
     """ Draws the model state onto the screen."""
 
-    def __init__(self, map, item, hero, vilain):
+    def __init__(self, map, hero, lstItem, sprites):
         self.map = map
-        self.item = item
         self.hero = hero
-        self.vilain = vilain
+        self.lstItem = lstItem
+        self.sprites = sprites
 
-    def window(self, width, heigh):
-        a = pygame.display.set_mode((width, heigh))
-        return a
+    def draw(self, path, wall, vilain):
+        for path_position in path:
+            x, y = path_position
+            self.sprites.screen.blit(
+                self.sprites.path_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
+            )
 
-    def window_title(self, name):
-        pygame.display.set_caption(name)
+        for wall_position in wall:
+            x, y = wall_position
+            self.sprites.screen.blit(
+                self.sprites.wall_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
+            )
 
-    def draw_path(self, window, path_position, sprite_size):
-        path_image = pygame.image.load(PATH_PICTURE).convert_alpha()
-        for positions in path_position:
-            x, y = positions
-            window.blit(path_image, (y * sprite_size, x * sprite_size))
+            self.sprites.screen.blit(
+                self.sprites.hero_picture,
+                ((self.hero.y * SPRITE_SIZE, self.hero.x * SPRITE_SIZE)),
+            )
+        for vilain_position in vilain:
+            x, y = vilain_position
+            if self.hero.status() != WIN:
+                self.sprites.screen.blit(
+                    self.sprites.vilain_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
+                )
 
-    def draw_wall(self, window, wall_position, sprite_size):
-        wall_image = pygame.image.load(WALL_PICTURE).convert_alpha()
-        for z in wall_position:
-            x, y = z
-            window.blit(wall_image, (y * sprite_size, x * sprite_size))
+        for i in self.lstItem.item_list:
+            if i.show:
+                self.sprites.screen.blit(
+                    self.sprites.ether_picture, (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE)
+                )
+                self.sprites.screen.blit(
+                    self.sprites.potion_picture,
+                    (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE),
+                )
+                self.sprites.screen.blit(
+                    self.sprites.potion_picture,
+                    (i[1] * SPRITE_SIZE, i[0] * SPRITE_SIZE),
+                )
 
-    def draw_hero(self, window, sprite_size):
-        hero_image = pygame.image.load(HERO).convert_alpha()
-        window.blit(
-            hero_image, (self.hero.y * sprite_size, self.hero.x * sprite_size),
-        )
-
-    def draw_vilain(self, window, sprite_size):
-        vilain_image = pygame.image.load(VILAIN).convert_alpha()
-        for positions in self.vilain.position:
-            x, y = positions
-            window.blit(vilain_image, (y * sprite_size, x * sprite_size))
+        pygame.display.flip()
+        self.sprites.clock.tick(FRAMERATE)
