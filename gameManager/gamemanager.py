@@ -18,10 +18,11 @@ class Gamemanager:
 
     def get_item(self):
         for i in self.lstItem.item_list:
-            if i[0] == self.hero.x and i[1] == self.hero.y:
-                i.show = False
-                self.number_item += 1
-                print(self.number_item)
+            if i.show == True:
+                if i[0] == self.hero.x and i[1] == self.hero.y:
+                    i.show = False
+                    self.number_item += 1
+                    print(self.number_item)
 
     def victory(self):
         for i in self.map.finish:
