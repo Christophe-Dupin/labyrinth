@@ -33,6 +33,7 @@ class Map:
         self.path = []
         self.start = []
         self.finish = []
+        self.library = []
         self.wall = []
         self.parse_map()
 
@@ -56,6 +57,8 @@ class Map:
                     elif colum == FINISH:
                         self.finish.append((x, y))
                         self.path.append((x, y))
+                    elif colum == "$":
+                        self.library.append((x, y))
                     else:
                         self.wall.append((x, y))
 
