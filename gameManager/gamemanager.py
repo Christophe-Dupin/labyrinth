@@ -1,8 +1,7 @@
-import pygame
-from pygame.locals import *
-from models.models import Map, Item, Hero, Vilain
+
+from models.models import Map, Item, Hero
 from view.view import View
-from config import WIDTH, HEIGHT, SPRITE_SIZE, NAME_WINDOW, WIN, LOST
+from config import WIN, LOST
 
 
 class Gamemanager:
@@ -18,10 +17,16 @@ class Gamemanager:
 
     def get_item(self):
         for i in self.lstItem.item_list:
-            if i[0] == self.hero.x and i[1] == self.hero.y:
-                i.show = False
-                self.number_item += 1
-                print(self.number_item)
+            if i.show == True:
+                if i[0] == self.hero.x and i[1] == self.hero.y:
+                    i.show = False
+                    self.number_item += 1
+                    print(self.number_item)
+
+    def library(self):
+        for c, i in enumerate(self.lstItem.item_list):
+            if i.show == False:
+                i.position = self.map.library[c]
 
     def victory(self):
         for i in self.map.finish:

@@ -25,7 +25,7 @@ ITEM = "data/ressource/items.png"
 # Window Parameter
 NAME_WINDOW = "MACGAVER"
 WIDTH = 300
-HEIGHT = 300
+HEIGHT = 320
 SPRITE_SIZE = 20
 FRAMERATE = 60
 # Victory

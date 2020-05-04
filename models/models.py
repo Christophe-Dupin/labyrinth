@@ -2,10 +2,6 @@ from config import (
     PATH,
     START,
     FINISH,
-    MAC,
-    WIN,
-    LOST,
-    IN_MAZE,
     HERO,
     VILAIN,
     WIDTH,
@@ -19,7 +15,6 @@ from config import (
     ITEM,
 )
 import random
-from controller.eventmanager import *
 import pygame
 from pygame.locals import *
 
@@ -33,6 +28,7 @@ class Map:
         self.path = []
         self.start = []
         self.finish = []
+        self.library = []
         self.wall = []
         self.parse_map()
 
@@ -56,6 +52,8 @@ class Map:
                     elif colum == FINISH:
                         self.finish.append((x, y))
                         self.path.append((x, y))
+                    elif colum == "$":
+                        self.library.append((x, y))
                     else:
                         self.wall.append((x, y))
 
@@ -94,16 +92,7 @@ class Hero:
                 self.x, self.y = new_coordonne
 
 
-class Vilain:
-    """Storing data for Vilain """
-
-    def __init__(self, map):
-        self.map = map
-        # self.position = self.map.finish
-
-
 class Item:
-    # Work in Progress
     def __init__(self, position, sprite):
         self.position = position
         self.sprite = sprite
