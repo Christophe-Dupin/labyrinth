@@ -1,6 +1,6 @@
 import pygame
 import random
-from models.models import Hero, Map, Vilain, Item, LstItem
+from models.models import Hero, Map, Item, LstItem
 from config import SPRITE_SIZE, FRAMERATE
 from pygame.locals import *
 
@@ -45,10 +45,10 @@ class View:
                     (i.position[1] * SPRITE_SIZE, i.position[0] * SPRITE_SIZE),
                 )
             else:
-                for a in self.map.library:
-                    self.sprites.screen.blit(
-                        i.sprite, (a[1] * SPRITE_SIZE, a[0] * SPRITE_SIZE),
-                    )
+                self.sprites.screen.blit(
+                    i.sprite,
+                    (i.position[1] * SPRITE_SIZE, i.position[0] * SPRITE_SIZE),
+                )
 
         pygame.display.flip()
         self.sprites.clock.tick(FRAMERATE)
