@@ -1,8 +1,7 @@
-from models.models import Hero, Map, Vilain, Item, LstItem, Sprites
+from models.models import Hero, Map, Item, LstItem, Sprites
 from view.view import View
 from gamemanager.gamemanager import Gamemanager
 from controller.controller import Controller
-from config import WIDTH, HEIGHT, NAME_WINDOW, SPRITE_SIZE
 import pygame
 
 
@@ -10,7 +9,6 @@ class App:
     def __init__(self):
         self.map = Map("data/map.txt")
         self.hero = Hero(self.map, 0, 0)
-        self.vilain = Vilain(self.map)
         self.sprites = Sprites()
         self.lstItem = LstItem(self.map, self.sprites)
         self.view = View(self.map, self.hero, self.lstItem, self.sprites)
