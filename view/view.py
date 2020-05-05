@@ -15,11 +15,7 @@ class View:
         self.sprites = sprites
 
     def draw(self, path, wall, vilain):
-        for path_position in path:
-            x, y = path_position
-            self.sprites.screen.blit(
-                self.sprites.path_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
-            )
+        self.sprites.screen.blit(self.sprites.background_picure, (0, 0))
 
         for wall_position in wall:
             x, y = wall_position
