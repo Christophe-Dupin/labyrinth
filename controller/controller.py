@@ -33,8 +33,6 @@ class Controller:
                     self.game_manager.hero.move("moveDown")
                     self.game_manager.get_item()
                     self.game_manager.library()
-
-
                 if self.game_manager.victory() == WIN:
                     self.running = False
                     print("c'est gagné")
