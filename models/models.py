@@ -13,6 +13,7 @@ from config import (
     ETHER,
     POTION,
     ITEM,
+    BG,
 )
 import random
 import pygame
@@ -141,6 +142,7 @@ class Sprites:
         self.ether_picture = self.load_images(ETHER)
         self.potion_picture = self.load_images(POTION)
         self.item_picture = self.load_images(ITEM)
+        self.background_picure = self.load_images(BG)
 
     @classmethod
     def load_images(cls, filename):
