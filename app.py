@@ -1,6 +1,6 @@
 from models.models import Hero, Map, Item, LstItem, Sprites
 from view.view import View
-from gamemanager.gamemanager import Gamemanager
+from gameManager.gamemanager import Gamemanager
 from controller.controller import Controller
 import pygame
 
