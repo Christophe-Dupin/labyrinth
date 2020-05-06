@@ -1,5 +1,5 @@
 
-from gamemanager.gamemanager import Gamemanager
+from gameManager.gamemanager import Gamemanager
 from config import WIN, LOST
 import pygame
 from pygame.locals import *
