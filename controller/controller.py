@@ -1,16 +1,24 @@
+"""This module all aspect with user action."""
+from config import LOST, WIN
 
-from gamemanager.gamemanager import Gamemanager
-from config import WIN, LOST
 import pygame
-from pygame.locals import *
+from pygame.locals import KEYDOWN, K_DOWN, K_ESCAPE, K_LEFT, K_RIGHT, K_UP
 
 
 class Controller:
+    """Manage all the keyboard event of pygame."""
+
     def __init__(self, game_manager):
+        """Construct the gamemanager object.
+
+        Arguments:
+            game_manager {[type]} -- [description]
+        """
         self.game_manager = game_manager
         self.running = True
 
     def process_input(self):
+        """Manage all the keyboard event of pygame."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -33,8 +41,6 @@ class Controller:
                     self.game_manager.hero.move("moveDown")
                     self.game_manager.get_item()
                     self.game_manager.library()
-
-
                 if self.game_manager.victory() == WIN:
                     self.running = False
                     print("c'est gagné")
