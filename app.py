@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 from models.models import Hero, Map, Item, LstItem, Sprites
 from view.view import View
 from gameManager.gamemanager import Gamemanager
+=======
+"""Module to instanciate all the object and.
+
+add  main loop of the game
+"""
+>>>>>>> develop
 from controller.controller import Controller
 
 from gameManager.gamemanager import Gamemanager
