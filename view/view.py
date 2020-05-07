@@ -1,20 +1,35 @@
+"""Module in order to put all the data on screen with pygame."""
+
+from config import FRAMERATE, SPRITE_SIZE
+
 import pygame
-import random
-from models.models import Hero, Map, Item, LstItem
-from config import SPRITE_SIZE, FRAMERATE
-from pygame.locals import *
 
 
 class View:
-    """ Draws the model state onto the screen."""
+    """Draws the model state onto the screen."""
 
-    def __init__(self, map, hero, lstItem, sprites):
+    def __init__(self, map, hero, lstitem, sprites):
+        """Instanciate all the object from models module.
+
+        Arguments:
+            map {[type]} -- [description]
+            hero {[type]} -- [description]
+            lstitem {[type]} -- [description]
+            sprites {[type]} -- [description]
+        """
         self.map = map
         self.hero = hero
-        self.lstItem = lstItem
+        self.lstItem = lstitem
         self.sprites = sprites
 
     def draw(self, path, wall, vilain):
+        """Allow to draw labyrinth with pygame.
+
+        Arguments:
+            path {[list]} -- [all the available path on the map]
+            wall {[list]} -- [all the wall on the map]
+            vilain {[list]} -- [list contrain the position of the vilain]
+        """
         self.sprites.screen.blit(self.sprites.background_picure, (0, 0))
 
         for wall_position in wall:
