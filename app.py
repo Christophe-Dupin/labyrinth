@@ -1,6 +1,6 @@
 """Module to instanciate all the object and.
 
-add the main loop of the game
+add  main loop of the game
 """
 from controller.controller import Controller
 
