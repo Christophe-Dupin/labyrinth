@@ -1,29 +1,40 @@
-from config import (
-    PATH,
-    START,
-    FINISH,
-    HERO,
-    VILAIN,
-    WIDTH,
-    HEIGHT,
-    NAME_WINDOW,
-    FRAMERATE,
-    PATH_PICTURE,
-    WALL_PICTURE,
-    ETHER,
-    POTION,
-    ITEM,
-    BG,
-)
+"""[summary].
+
+Returns:
+    [type] -- [description]
+"""
 import random
+
+from config import (
+    BG,
+    ETHER,
+    FINISH,
+    FRAMERATE,
+    HEIGHT,
+    HERO,
+    ITEM,
+    NAME_WINDOW,
+    PATH,
+    PATH_PICTURE,
+    POTION,
+    START,
+    VILAIN,
+    WALL_PICTURE,
+    WIDTH,
+)
+
 import pygame
-from pygame.locals import *
 
 
 class Map:
-    """Storing data from map file map.txt"""
+    """Storing data from map file map.txt."""
 
     def __init__(self, file_name):
+        """Create all attribute to store date of the map.
+
+        Arguments:
+            file_name {string} -- [path to file of the map shoud be .txt]
+        """
         self.file_name = file_name
         self.liste_map = []
         self.path = []
@@ -34,12 +45,32 @@ class Map:
         self.parse_map()
 
     def __getitem__(self, key):
+        """Allow to acces to indice of the object self.list_map.
+
+        Arguments:
+            key {[int]} -- [index of item in the list]
+
+        Returns:
+            [type] -- [description]
+        """
         return self.liste_map[key]
 
     def __contains__(self, position):
+        """[summary].
+
+        Arguments:
+            position {[type]} -- [description]
+
+        Returns:
+            [Boolean] -- [if position in self.path return true]
+        """
         return (position.x, position.y) in self.path
 
     def parse_map(self):
+        """Parse map.txt file to have coordinated (x,y).
+
+        of all element of map.
+        """
         with open(self.file_name, "r") as f:
             for ligne in f:
                 self.liste_map.append(list(ligne.strip("\n")))
@@ -60,18 +91,37 @@ class Map:
 
 
 class Hero:
-    """Storing data for Hero """
+    """Storing data for Hero."""
 
     def __init__(self, map, x, y):
+        """Construct argument for hero.
+
+        Arguments:
+            map {[type]} -- [description]
+            x {[int]} -- [coordinated abscisse on map]
+            y {[int]} -- [coordinated ordinate on map]
+        """
         self.map = map
         self.x = x
         self.y = y
 
     def __contains__(self, position):
+        """Overload operator in for map object.
+
+        Arguments:
+            position {[tuple]} -- [coordinated x,y of hero]
+
+        Returns:
+            [Boolean] -- [return true if position in map]
+        """
         return (self.x, self.y) in self.map.path
 
     def move(self, direction):
+        """Allow to move hero in a new position which is a path.
 
+        Arguments:
+            direction {[string]} -- [which direction you want to move]
+        """
         if direction == "moveUp":
             new_coordonne = self.x - 1, self.y
             if new_coordonne in self.map.path:
@@ -94,20 +144,49 @@ class Hero:
 
 
 class Item:
+    """Define what is an item object."""
+
     def __init__(self, position, sprite):
+        """Define wich attribute is declare for an item.
+
+        Arguments:
+            position {[type]} -- [description]
+            sprite {[type]} -- [description]
+        """
         self.position = position
         self.sprite = sprite
         self.show = True
 
     def __repr__(self):
+        """Allow to print an item object an return a specific string.
+
+        Returns:
+            [string] -- [return a string of the position for an item object]
+        """
         return str(self.position)
 
     def __getitem__(self, key):
+        """Allow to acces to specific element with index of item object.
+
+        Arguments:
+            key {[int]} -- [index of the element of the list]
+
+        Returns:
+            [tuple] -- [return the position]
+        """
         return self.position[key]
 
 
-class LstItem:
+class Lstitem:
+    """Class to store multiple instances of the class Item."""
+
     def __init__(self, map, sprite):
+        """[summary].
+
+        Arguments:
+            map {[type]} -- [description]
+            sprite {[type]} -- [description]
+        """
         self.sprite = sprite
         self.map = map
         self.position_items = []
@@ -118,12 +197,26 @@ class LstItem:
         self.item_list = [self.item, self.item1, self.item2]
 
     def random_items_position(self):
+        """Allow to acces to three random positions.
+
+        Returns:
+            [list] -- [return 3 random position in the map]
+        """
         self.position_items = random.choices(self.map.path, k=3)
         return self.position_items
 
 
 class Sprites:
+    """Class to initialize pygame and add methode.
+
+    to convert images.
+    """
+
     def __init__(self):
+        """Initialize pygame module an picture object.
+
+        for the view module.
+        """
         # viewport size
         self.screen_size = WIDTH, HEIGHT
 
@@ -146,4 +239,13 @@ class Sprites:
 
     @classmethod
     def load_images(cls, filename):
+        """Allow to load picture and convert to pygame format.
+
+        Arguments:
+        filename {[str]} -- [path to images to convert]
+
+        Returns:
+        [pygame] -- [return the pygame object with the convert image
+        to pygame format]
+        """
         return pygame.image.load(filename).convert_alpha()
