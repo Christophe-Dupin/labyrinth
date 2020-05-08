@@ -2,7 +2,6 @@
 ## Courte description du projet
 C'est un jeu de labyrinthe codé en python.
 Mac Gyver doit collecter des objets puis endormir le garde qui surveille la sortie du labyrinthe.
-a>
 [Détails du projet](https://openclassrooms.com/fr/projects/aidez-macgyver-a-sechapper/assignment)
 ## Contraintes
 Versionner le code avec git et le publier sur Github
