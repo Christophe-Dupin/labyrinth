@@ -1,22 +1,25 @@
-"""Module Manage all the action of the game.
+"""Manage all the action of the game.
 
-Returns:
-    Boolean -- Return the status of victory WIN or LOST
+:return: [Victory Status]
+:rtype: [Boolean]
 """
 from config import LOST, WIN
 
 
 class Gamemanager:
-    """[summary]."""
+    """Mannage all the game Action."""
 
     def __init__(self, map, hero, view, lstitem):
-        """[summary].
+        """Init all the instance of module models,view.
 
-        Arguments:
-            map {[type]} -- [description]
-            hero {[type]} -- [description]
-            view {[type]} -- [description]
-            lstitem {[type]} -- [description]
+        :param map: [instance of class Map]
+        :type map: [Map]
+        :param hero: [instance of class Hero]
+        :type hero: [Hero]
+        :param view: [instance of class View]
+        :type view: [View]
+        :param lstitem: [instance of class lstitem]
+        :type lstitem: [lstitem]
         """
         self.map = map
         self.hero = hero
@@ -44,11 +47,10 @@ class Gamemanager:
                 i.position = self.map.library[c]
 
     def victory(self):
-        """
-        Define the victory Status of the game.
+        """Define the victory Status of the game.
 
-        Returns:
-            Boolean -- Define if the Hero win or lost the game
+        :return: [return if the user win or loose]
+        :rtype: [Boolean]
         """
         for i in self.map.finish:
             if (self.hero.x, self.hero.y) == i:
