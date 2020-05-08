@@ -1,7 +1,7 @@
-"""[summary].
+"""Module in order to generate and store data for the game.
 
-Returns:
-    [type] -- [description]
+:return: [description]
+:rtype: [type]
 """
 import random
 
@@ -30,10 +30,10 @@ class Map:
     """Storing data from map file map.txt."""
 
     def __init__(self, file_name):
-        """Create all attribute to store date of the map.
+        """Store an acces all datas of the map.
 
-        Arguments:
-            file_name {string} -- [path to file of the map shoud be .txt]
+        :param file_name: [path of the map.txt files]
+        :type file_name: [str]
         """
         self.file_name = file_name
         self.liste_map = []
@@ -45,24 +45,22 @@ class Map:
         self.parse_map()
 
     def __getitem__(self, key):
-        """Allow to acces to indice of the object self.list_map.
+        """Acces to index of liste_map attribute.
 
-        Arguments:
-            key {[int]} -- [index of item in the list]
-
-        Returns:
-            [type] -- [description]
+        :param key: [index of the list]
+        :type key: [int]
+        :return: [element from the list]
+        :rtype: [int]
         """
         return self.liste_map[key]
 
     def __contains__(self, position):
-        """[summary].
+        """Overload of the operator in for Map object.
 
-        Arguments:
-            position {[type]} -- [description]
-
-        Returns:
-            [Boolean] -- [if position in self.path return true]
+        :param position: [description]
+        :type position: [tuple]
+        :return: [return if position is in the liste]
+        :rtype: [Boolean]
         """
         return (position.x, position.y) in self.path
 
@@ -94,33 +92,34 @@ class Hero:
     """Storing data for Hero."""
 
     def __init__(self, map, x, y):
-        """Construct argument for hero.
+        """Init position of the hero.
 
-        Arguments:
-            map {[type]} -- [description]
-            x {[int]} -- [coordinated abscisse on map]
-            y {[int]} -- [coordinated ordinate on map]
+        :param map: [Instance of map classe]
+        :type map: [Map]
+        :param x: [start position on abscisse]
+        :type x: [int]
+        :param y: [start position on ordered]
+        :type y: [int]
         """
         self.map = map
         self.x = x
         self.y = y
 
     def __contains__(self, position):
-        """Overload operator in for map object.
+        """Overload of the operator in for Hero object.
 
-        Arguments:
-            position {[tuple]} -- [coordinated x,y of hero]
-
-        Returns:
-            [Boolean] -- [return true if position in map]
+        :param position: [position to compare]
+        :type position: [tuple]
+        :return: [True or false]
+        :rtype: [Boolean]
         """
         return (self.x, self.y) in self.map.path
 
     def move(self, direction):
-        """Allow to move hero in a new position which is a path.
+        """Allow to stor a new position for hero if the new position is a correct path.
 
-        Arguments:
-            direction {[string]} -- [which direction you want to move]
+        :param direction: [direction you choose]
+        :type direction: [str]
         """
         if direction == "moveUp":
             new_coordonne = self.x - 1, self.y
@@ -147,32 +146,32 @@ class Item:
     """Define what is an item object."""
 
     def __init__(self, position, sprite):
-        """Define wich attribute is declare for an item.
+        """Describe what is an item.
 
-        Arguments:
-            position {[type]} -- [description]
-            sprite {[type]} -- [description]
+        :param position: [position of the item]
+        :type position: [tuple]
+        :param sprite: [name ofthe pygame image]
+        :type sprite: [pygame]
         """
         self.position = position
         self.sprite = sprite
         self.show = True
 
     def __repr__(self):
-        """Allow to print an item object an return a specific string.
+        """Allow to print a representation of the position.
 
-        Returns:
-            [string] -- [return a string of the position for an item object]
+        :return: [return the position of an item object]
+        :rtype: [str]
         """
         return str(self.position)
 
     def __getitem__(self, key):
-        """Allow to acces to specific element with index of item object.
+        """Allow to acces to index of item object.
 
-        Arguments:
-            key {[int]} -- [index of the element of the list]
-
-        Returns:
-            [tuple] -- [return the position]
+        :param key: [index of the liste]
+        :type key: [int]
+        :return: [value of element of the liste]
+        :rtype: [int]
         """
         return self.position[key]
 
@@ -181,11 +180,12 @@ class Lstitem:
     """Class to store multiple instances of the class Item."""
 
     def __init__(self, map, sprite):
-        """[summary].
+        """Init all the item of the game.
 
-        Arguments:
-            map {[type]} -- [description]
-            sprite {[type]} -- [description]
+        :param map: [instance of Map object]
+        :type map: [Map]
+        :param sprite: [instance of sprites object]
+        :type sprite: [Sprites]
         """
         self.sprite = sprite
         self.map = map
@@ -197,10 +197,10 @@ class Lstitem:
         self.item_list = [self.item, self.item1, self.item2]
 
     def random_items_position(self):
-        """Allow to acces to three random positions.
+        """Allow to acces to 3 random position in the valid path of the map.
 
-        Returns:
-            [list] -- [return 3 random position in the map]
+        :return: [Liste of the random position]
+        :rtype: [lst]
         """
         self.position_items = random.choices(self.map.path, k=3)
         return self.position_items
@@ -239,13 +239,11 @@ class Sprites:
 
     @classmethod
     def load_images(cls, filename):
-        """Allow to load picture and convert to pygame format.
+        """Class to load and convert images to pygame format.
 
-        Arguments:
-        filename {[str]} -- [path to images to convert]
-
-        Returns:
-        [pygame] -- [return the pygame object with the convert image
-        to pygame format]
+        :param filename: [name of the file]
+        :type filename: [str]
+        :return: [object pygame]
+        :rtype: [pygame]
         """
         return pygame.image.load(filename).convert_alpha()
