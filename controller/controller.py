@@ -11,10 +11,10 @@ class Controller:
     """Manage all the keyboard event of pygame."""
 
     def __init__(self, game_manager):
-        """Construct the gamemanager object.
+        """Manage all of the user event from pygame.
 
-        Arguments:
-            game_manager {[type]} -- [description]
+        :param game_manager: [instance of gamemanager class]
+        :type game_manager: [Gamemanager]
         """
         self.game_manager = game_manager
         self.running = True
@@ -45,7 +45,7 @@ class Controller:
                     self.game_manager.library()
                 if self.game_manager.victory() == WIN:
                     self.running = False
-                    print("c'est gagné")
+                    print("YOU WIN")
                 elif self.game_manager.victory() == LOST:
                     self.running = False
-                    print("c'est perdu")
+                    print("YOU LOOSE")

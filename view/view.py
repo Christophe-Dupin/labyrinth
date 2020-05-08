@@ -9,13 +9,16 @@ class View:
     """Draws the model state onto the screen."""
 
     def __init__(self, map, hero, lstitem, sprites):
-        """Instanciate all the object from models module.
+        """Create all the objects needed for the view.
 
-        Arguments:
-            map {[type]} -- [description]
-            hero {[type]} -- [description]
-            lstitem {[type]} -- [description]
-            sprites {[type]} -- [description]
+        :param map: [instance of class Map]
+        :type map: [Map]
+        :param hero: [instance of class Hero]
+        :type hero: [Hero]
+        :param lstitem: [instance of class lstitem]
+        :type lstitem: [lstitem]
+        :param sprites: [instance of class Sprite]
+        :type sprites: [Sprites]
         """
         self.map = map
         self.hero = hero
@@ -23,12 +26,14 @@ class View:
         self.sprites = sprites
 
     def draw(self, path, wall, vilain):
-        """Allow to draw labyrinth with pygame.
+        """Allow to draw the map in pygame.
 
-        Arguments:
-            path {[list]} -- [all the available path on the map]
-            wall {[list]} -- [all the wall on the map]
-            vilain {[list]} -- [list contrain the position of the vilain]
+        :param path: [All the coordinate path in the map]
+        :type path: [list]
+        :param wall: [All the coordinate wall in the map ]
+        :type wall: [list]
+        :param vilain: [position x,y of the vilain]
+        :type vilain: [lst]
         """
         self.sprites.screen.blit(self.sprites.background_picure, (0, 0))
 
@@ -46,7 +51,8 @@ class View:
             x, y = vilain_position
             if (self.hero.x, self.hero.y) != vilain_position:
                 self.sprites.screen.blit(
-                    self.sprites.vilain_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
+                    self.sprites.vilain_picture,
+                    (y * SPRITE_SIZE, x * SPRITE_SIZE),
                 )
 
         for i in self.lstItem.item_list:

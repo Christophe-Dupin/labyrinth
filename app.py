@@ -21,7 +21,9 @@ class App:
         self.sprites = Sprites()
         self.lstitem = Lstitem(self.map, self.sprites)
         self.view = View(self.map, self.hero, self.lstitem, self.sprites)
-        self.gamemanager = Gamemanager(self.map, self.hero, self.view, self.lstitem)
+        self.gamemanager = Gamemanager(
+            self.map, self.hero, self.view, self.lstitem
+        )
         self.controller = Controller(self.gamemanager)
 
     def mainloop(self):
