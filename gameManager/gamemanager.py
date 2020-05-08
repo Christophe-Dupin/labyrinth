@@ -38,7 +38,7 @@ class Gamemanager:
                 if i[0] == self.hero.x and i[1] == self.hero.y:
                     i.show = False
                     self.number_item += 1
-                    print(self.number_item)
+                    print("{} item récolté".format(self.number_item))
 
     def library(self):
         """Put item in library when hero positionand item are the same."""
