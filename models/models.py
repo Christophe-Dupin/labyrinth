@@ -204,10 +204,8 @@ class Lstitem:
         """
         # Create a list of start and finish coordonate
         a = self.map.start + self.map.finish
-        print(a)
         # Exclude start and finish for random item position
         i = list(set(self.map.path) - (set(a)))
-        print(i)
         self.position_items = random.choices(i, k=3)
         return self.position_items
 
