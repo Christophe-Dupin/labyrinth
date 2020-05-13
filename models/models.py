@@ -72,20 +72,20 @@ class Map:
         with open(self.file_name, "r") as f:
             for ligne in f:
                 self.liste_map.append(list(ligne.strip("\n")))
-            for x, ligne in enumerate(self.liste_map):
-                for y, colum in enumerate(ligne):
-                    if colum == PATH:
-                        self.path.append((x, y))
-                    elif colum == START:
-                        self.start.append((x, y))
-                        self.path.append((x, y))
-                    elif colum == FINISH:
-                        self.finish.append((x, y))
-                        self.path.append((x, y))
-                    elif colum == "$":
-                        self.library.append((x, y))
-                    else:
-                        self.wall.append((x, y))
+        for x, ligne in enumerate(self.liste_map):
+            for y, colum in enumerate(ligne):
+                if colum == PATH:
+                    self.path.append((x, y))
+                elif colum == START:
+                    self.start.append((x, y))
+                    self.path.append((x, y))
+                elif colum == FINISH:
+                    self.finish.append((x, y))
+                    self.path.append((x, y))
+                elif colum == "$":
+                    self.library.append((x, y))
+                else:
+                    self.wall.append((x, y))
 
 
 class Hero:
