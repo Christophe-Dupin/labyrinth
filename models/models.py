@@ -70,17 +70,10 @@ class Map:
         of all element of map.
         """
         with open(self.file_name, "r") as f:
-<<<<<<< HEAD
-            for ligne in f:
-                self.liste_map.append(list(ligne.strip("\n")))
-        for x, ligne in enumerate(self.liste_map):
-            for y, colum in enumerate(ligne):
-=======
             for line in f:
                 self.liste_map.append(list(line.strip("\n")))
         for x, line in enumerate(self.liste_map):
             for y, colum in enumerate(line):
->>>>>>> hotfix/guillaume_feedback
                 if colum == PATH:
                     self.path.append((x, y))
                 elif colum == START:
