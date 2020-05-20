@@ -8,32 +8,26 @@ import pygame
 class View:
     """Draws the model state onto the screen."""
 
-    def __init__(self, map, hero, lstitem, sprites):
-        """Create all the objects needed for the view.
+    def __init__(self, laby, hero, sprites):
+        """Instanciate all the object from models module.
 
-        :param map: [instance of class Map]
-        :type map: [Map]
-        :param hero: [instance of class Hero]
-        :type hero: [Hero]
-        :param lstitem: [instance of class lstitem]
-        :type lstitem: [lstitem]
-        :param sprites: [instance of class Sprite]
-        :type sprites: [Sprites]
+        Arguments:
+            map {[type]} -- [description]
+            hero {[type]} -- [description]
+            lstitem {[type]} -- [description]
+            sprites {[type]} -- [description]
         """
-        self.map = map
+        self.map = laby
         self.hero = hero
-        self.lstItem = lstitem
         self.sprites = sprites
 
     def draw(self, path, wall, vilain):
-        """Allow to draw the map in pygame.
+        """Allow to draw labyrinth with pygame.
 
-        :param path: [All the coordinate path in the map]
-        :type path: [list]
-        :param wall: [All the coordinate wall in the map ]
-        :type wall: [list]
-        :param vilain: [position x,y of the vilain]
-        :type vilain: [lst]
+        Arguments:
+            path {[list]} -- [all the available path on the map]
+            wall {[list]} -- [all the wall on the map]
+            vilain {[list]} -- [list contrain the position of the vilain]
         """
         self.sprites.screen.blit(self.sprites.background_picure, (0, 0))
 
@@ -55,7 +49,7 @@ class View:
                     (y * SPRITE_SIZE, x * SPRITE_SIZE),
                 )
 
-        for i in self.lstItem.item_list:
+        for i in self.sprites.item_list:
             if i.show:
                 self.sprites.screen.blit(
                     i.sprite,
@@ -69,3 +63,12 @@ class View:
 
         pygame.display.flip()
         self.sprites.clock.tick(FRAMERATE)
+
+    def count_item(self):
+        """Methode in order to print number of item."""
+        for i in self.sprites.item_list:
+            if i.show is False:
+                if self.hero.number_item == 1:
+                    print("{} item found".format(self.hero.number_item))
+                if self.hero.number_item >= 1:
+                    print("{} items found".format(self.hero.number_item))

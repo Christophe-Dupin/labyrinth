@@ -12,12 +12,12 @@ from config import (
     FRAMERATE,
     HEIGHT,
     HERO,
-    ITEM,
     NAME_WINDOW,
+    NEEDLE,
     PATH,
     PATH_PICTURE,
-    POTION,
     START,
+    TUBE,
     VILAIN,
     WALL_PICTURE,
     WIDTH,
@@ -70,10 +70,17 @@ class Map:
         of all element of map.
         """
         with open(self.file_name, "r") as f:
+<<<<<<< HEAD
             for ligne in f:
                 self.liste_map.append(list(ligne.strip("\n")))
         for x, ligne in enumerate(self.liste_map):
             for y, colum in enumerate(ligne):
+=======
+            for line in f:
+                self.liste_map.append(list(line.strip("\n")))
+        for x, line in enumerate(self.liste_map):
+            for y, colum in enumerate(line):
+>>>>>>> hotfix/guillaume_feedback
                 if colum == PATH:
                     self.path.append((x, y))
                 elif colum == START:
@@ -91,19 +98,19 @@ class Map:
 class Hero:
     """Storing data for Hero."""
 
-    def __init__(self, map, x, y):
+    def __init__(self, x, y):
         """Init position of the hero.
 
-        :param map: [Instance of map classe]
-        :type map: [Map]
         :param x: [start position on abscisse]
         :type x: [int]
         :param y: [start position on ordered]
         :type y: [int]
+        :param number_item: [number of item get by the hero]
+        :type number_item: [int]
         """
-        self.map = map
         self.x = x
         self.y = y
+        self.number_item = 0
 
     def __contains__(self, position):
         """Overload of the operator in for Hero object.
@@ -116,30 +123,42 @@ class Hero:
         return (self.x, self.y) in self.map.path
 
     def move(self, direction):
-        """Allow to stor a new position for hero if the new position is a correct path.
+        """Methode to move the hero in the game.
 
-        :param direction: [direction you choose]
+        :param direction: [direction you choose to go]
         :type direction: [str]
+        :return: [return the new position]
+        :rtype: [tuple]
         """
         if direction == "moveUp":
-            new_coordonne = self.x - 1, self.y
-            if new_coordonne in self.map.path:
-                self.x, self.y = new_coordonne
+            return (self.x - 1, self.y)
 
         if direction == "moveDown":
-            new_coordonne = (self.x + 1, self.y)
-            if new_coordonne in self.map.path:
-                self.x, self.y = new_coordonne
+            return (self.x + 1, self.y)
 
         if direction == "moveLeft":
-            new_coordonne = (self.x, self.y - 1)
-            if new_coordonne in self.map.path:
-                self.x, self.y = new_coordonne
+            return (self.x, self.y - 1)
 
         if direction == "moveRight":
-            new_coordonne = (self.x, self.y + 1)
-            if new_coordonne in self.map.path:
-                self.x, self.y = new_coordonne
+            return (self.x, self.y + 1)
+
+    def bag(self, item, library):
+        """Collect item during the game.
+
+        :param item: [List of different item in the game]
+        :type item: [Sprite]
+        :param library: [List of random position of item]
+        :type library: [Map]
+        """
+        for i in item:
+            if i.show is True:
+                if i[0] == self.x and i[1] == self.y:
+                    i.show = False
+                    self.number_item += 1
+                    print("{} item found".format(self.number_item))
+        for c, i in enumerate(item):
+            if i.show is False:
+                i.position = library[c]
 
 
 class Item:
@@ -176,78 +195,41 @@ class Item:
         return self.position[key]
 
 
-class Lstitem:
-    """Class to store multiple instances of the class Item."""
-
-    def __init__(self, map, sprite):
-        """Init all the item of the game.
-
-        :param map: [instance of Map object]
-        :type map: [Map]
-        :param sprite: [instance of sprites object]
-        :type sprite: [Sprites]
-        """
-        self.sprite = sprite
-        self.map = map
-        self.position_items = []
-        self.random_items_position()
-        self.item = Item(self.position_items[0], self.sprite.ether_picture)
-        self.item1 = Item(self.position_items[1], self.sprite.potion_picture)
-        self.item2 = Item(self.position_items[2], self.sprite.item_picture)
-        self.item_list = [self.item, self.item1, self.item2]
-
-    def random_items_position(self):
-        """Allow to acces to 3 random position in the valid path of the map.
-
-        :return: [Liste of the random position]
-        :rtype: [lst]
-        """
-        # Create a list of start and finish coordonate
-        a = self.map.start + self.map.finish
-        # Exclude start and finish for random item position
-        i = list(set(self.map.path) - (set(a)))
-        self.position_items = random.choices(i, k=3)
-        return self.position_items
-
-
 class Sprites:
     """Class to initialize pygame and add methode.
 
     to convert images.
     """
 
-    def __init__(self):
+    def __init__(self, path):
         """Initialize pygame module an picture object.
 
         for the view module.
         """
-        # viewport size
+        self.path = path
+        # Viewport size
         self.screen_size = WIDTH, HEIGHT
 
-        # init pygame
+        # Init pygame
         pygame.init()
         pygame.display.set_caption(NAME_WINDOW)
         self.clock = pygame.time.Clock()
         self.clock.tick(FRAMERATE)
         self.screen = pygame.display.set_mode(self.screen_size)
 
-        # init Sprites
-        self.path_picture = self.load_images(PATH_PICTURE)
-        self.wall_picture = self.load_images(WALL_PICTURE)
-        self.hero_picture = self.load_images(HERO)
-        self.vilain_picture = self.load_images(VILAIN)
-        self.ether_picture = self.load_images(ETHER)
-        self.potion_picture = self.load_images(POTION)
-        self.item_picture = self.load_images(ITEM)
-        self.background_picure = self.load_images(BG)
+        # Init Sprites
+        self.path_picture = pygame.image.load(PATH_PICTURE).convert_alpha()
+        self.wall_picture = pygame.image.load(WALL_PICTURE).convert_alpha()
+        self.hero_picture = pygame.image.load(HERO).convert_alpha()
+        self.vilain_picture = pygame.image.load(VILAIN).convert_alpha()
+        self.ether_picture = pygame.image.load(ETHER).convert_alpha()
+        self.potion_picture = pygame.image.load(TUBE).convert_alpha()
+        self.needle_picture = pygame.image.load(NEEDLE).convert_alpha()
+        self.background_picure = pygame.image.load(BG).convert_alpha()
 
-    @classmethod
-    def load_images(cls, filename):
-        """Class to load and convert images to pygame format.
-
-        :param filename: [name of the file]
-        :type filename: [str]
-        :return: [object pygame]
-        :rtype: [pygame]
-        """
-        return pygame.image.load(filename).convert_alpha()
+        # Init items position and attributes
+        self.position_items = random.choices(self.path, k=3)
+        self.item = Item(self.position_items[0], self.ether_picture)
+        self.item1 = Item(self.position_items[1], self.potion_picture)
+        self.item2 = Item(self.position_items[2], self.needle_picture)
+        self.item_list = [self.item, self.item1, self.item2]

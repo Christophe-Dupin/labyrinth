@@ -16,8 +16,8 @@ HERO = "data/ressource/MacGyver.png"
 VILAIN = "data/ressource/Gardien.png"
 BG = "data/ressource/BG.jpg"
 ETHER = "data/ressource/ether.png"
-POTION = "data/ressource/aiguille.png"
-ITEM = "data/ressource/tube_plastique.png"
+NEEDLE = "data/ressource/aiguille.png"
+TUBE = "data/ressource/tube_plastique.png"
 
 
 # Window Parameter
