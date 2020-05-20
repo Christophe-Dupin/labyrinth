@@ -18,7 +18,9 @@ class App:
         self.hero = Hero(0, 0)
         self.sprites = Sprites(self.laby.path)
         self.view = View(self.laby, self.hero, self.sprites)
-        self.controller = Controller(self.hero, self.laby, self.sprites, self.view)
+        self.controller = Controller(
+            self.hero, self.laby, self.sprites, self.view
+        )
 
     def mainloop(self):
         """Loop of the game."""
