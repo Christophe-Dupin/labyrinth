@@ -22,7 +22,6 @@ class View:
         self.sprites = sprites
 
     def draw(self, path, wall, vilain):
-
         """Allow to draw labyrinth with pygame.
 
         Arguments:
@@ -46,7 +45,8 @@ class View:
             x, y = vilain_position
             if (self.hero.x, self.hero.y) != vilain_position:
                 self.sprites.screen.blit(
-                    self.sprites.vilain_picture, (y * SPRITE_SIZE, x * SPRITE_SIZE)
+                    self.sprites.vilain_picture,
+                    (y * SPRITE_SIZE, x * SPRITE_SIZE),
                 )
 
         for i in self.sprites.item_list:
@@ -65,10 +65,10 @@ class View:
         self.sprites.clock.tick(FRAMERATE)
 
     def count_item(self):
+        """Methode in order to print number of item."""
         for i in self.sprites.item_list:
             if i.show is False:
                 if self.hero.number_item == 1:
                     print("{} item found".format(self.hero.number_item))
-                    break
                 if self.hero.number_item >= 1:
                     print("{} items found".format(self.hero.number_item))
